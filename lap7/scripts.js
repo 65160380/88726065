@@ -27,6 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
         todos[index].completed = !todos[index].completed;
         renderTodoList();
     }
+    //‘เพิ่มค าอธิบายเพิ่มเติมใน JavaScript’//
 
 
     // แสดงรายการ Todo บนหน้าเว็บ
