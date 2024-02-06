@@ -1,0 +1,29 @@
+{
+    "books": [
+        {
+            "id": 1, 
+            "name": "The Giver Quartet", 
+            "price": "445", 
+            "author1": "Lois Lowry", 
+            "author2": "Jeff Bridges",
+            "author3": "Brenton Thwaites"
+        },
+        {
+            "id": 2, 
+            "name": "The Chronicles of Narnia", 
+            "price": "941", 
+            "author1": "Pauline Baynes", 
+            "author2": "Walter Hooper",
+            "author3": "Christopher Tolkien"
+        },
+        {
+            "id": 3,
+            "name": "The Wheel of Time series ",
+            "price": "471",
+            "author1": "Robert Jordan",
+            "author2": "Brandon Sanderson",
+            "author3": " Harriet McDougal"
+          }
+
+    ]
+}
