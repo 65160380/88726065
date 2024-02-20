@@ -1,0 +1,149 @@
+<!-- uploadcat.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      background-color: #66e7fd;
+      /* สีพื้นหลัง */
+      margin: 0;
+      padding: 0;
+      color: #ffffff;
+      /* สีข้อความ */
+      font-family: Arial, sans-serif;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    h3 {
+      text-align: center;
+      font-size: 24px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 20px auto;
+      padding: 0 20px;
+    }
+
+    input[type="file"] {
+      display: block;
+      margin: 20px auto;
+    }
+
+    button {
+      background-color: #c9e302;
+      /* สีปุ่ม */
+      color: white;
+      /* สีข้อความภายในปุ่ม */
+      padding: 10px 20px;
+      /* ขนาดของปุ่ม */
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      display: block;
+      margin: 20px auto;
+      font-size: 16px;
+      /* ขนาดอักษร */
+    }
+
+    button:hover {
+      background-color: #d09705;
+      /* สีเมื่อโฮเวอร์ปุ่ม */
+    }
+
+    #uploadResults {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    #uploadResults img {
+      width: 50%;
+      display: block;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <h1>Upload a Cat</h1>
+    </header>
+    <input type="file" id="fileInput" accept="image/*" onchange="previewImage(event)" />
+
+    <img id="preview" src="#" alt="Preview"
+      style="display: none; align-items: center; max-width: 100%; border-radius: 8px; box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);" />
+
+    <div id="uploadResults">
+      <button onclick="uploadImage()">Upload</button>
+    </div>
+
+    <button onclick="BackToIndexHtml()">Gallery</button>
+  </div>
+  <script>
+    function previewImage(event) {
+      const input = event.target;
+      const preview = document.getElementById('preview');
+
+      const file = input.files[0];
+      const reader = new FileReader();
+
+      reader.onload = function () {
+        preview.src = reader.result;
+        preview.style.display = 'block';
+      }
+
+      if (file) {
+        reader.readAsDataURL(file);
+      } else {
+        preview.src = '';
+        preview.style.display = 'none';
+      }
+    }
+
+    const API_URL = "https://api.thecatapi.com/v1/";
+    const API_KEY = "live_uDzqhL2mYV5vWkAVdv7NW97YVBa8aKBi0jLiDiuAyw4mIT68YiYZ6HfQF9vOnSSm";
+
+    function uploadImage() {
+      const fileInput = document.getElementById("fileInput");
+      const file = fileInput.files[0];
+      const formData = new FormData();
+      formData.append("file", file);
+
+      fetch(`${API_URL}images/upload`, {
+        method: "POST",
+        headers: {
+          "x-api-key": API_KEY,
+        },
+        body: formData,
+      })
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          console.log(data);
+          document.getElementById("uploadResults").innerHTML =
+            `<br>
+        Image uploaded successfully`;
+          setTimeout(() => {
+            window.location.href = "index.html";
+          }, 1000); // Redirect to index.html after 1 seconds
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+
+    function BackToIndexHtml() {
+      window.location.href = "index.html";
+    }  
+  </script>
+</body>
+
+</html>
